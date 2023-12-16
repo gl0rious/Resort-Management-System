@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @Entity
 public class State {
@@ -20,4 +22,9 @@ public class State {
 	private Country country;
 	@Embedded
 	private AuditData auditData;
+
+	public State(String code, String name) {
+		this.code = code;
+		this.name = name;
+	}
 }

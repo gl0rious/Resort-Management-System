@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,9 +25,9 @@ public class Customer {
 	private String email;
 	@OneToOne(mappedBy = "customer")
 	private User user;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address physicalAddress;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Address billingAddress;
 	@Embedded
 	private AuditData auditData;

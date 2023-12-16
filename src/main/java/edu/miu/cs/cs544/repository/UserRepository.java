@@ -5,4 +5,6 @@ import edu.miu.cs.cs544.domain.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     User findByUserName(String userName);
+
+    boolean existsByUserName(String userName);
 }

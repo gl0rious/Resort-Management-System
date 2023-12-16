@@ -15,16 +15,13 @@ public class AddressService {
     @Autowired
     private StateRepository stateRepository;
 
-    public State getStateByCode(String code) {
-        return stateRepository.findByCode(code);
-    }
-
     public Address createAddress(AddressRequest request) {
+        String code = request.getStateCode();
+        State state = stateRepository.findByCode(code).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "State (code='%s') Not Found".formatted(code)));
+
         Address address = AddressRequest.to(request);
-        State state = stateRepository.findByCode(request.getStateCode());
-        if (state == null)
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Address Not Found");
         address.setState(state);
         return address;
     }
