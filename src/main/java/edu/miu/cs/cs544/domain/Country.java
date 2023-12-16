@@ -10,16 +10,12 @@ import lombok.Data;
 @Data
 @Entity
 public class Country {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private String code;
-
 	private String name;
-
 	private Integer population;
-
 	@Embedded
 	private AuditData auditData;
-
 }

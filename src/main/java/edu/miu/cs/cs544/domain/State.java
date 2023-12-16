@@ -11,19 +11,13 @@ import lombok.Data;
 @Data
 @Entity
 public class State {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	private String code;
-
 	private String name;
-
 	@ManyToOne
 	private Country country;
-
 	@Embedded
 	private AuditData auditData;
-
 }
