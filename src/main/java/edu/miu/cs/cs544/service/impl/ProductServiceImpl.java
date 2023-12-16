@@ -2,10 +2,10 @@ package edu.miu.cs.cs544.service.impl;
 
 import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.dto.ProductDTO;
+import edu.miu.cs.cs544.exception.ResourceNotFoundException;
 import edu.miu.cs.cs544.repository.ProductRepository;
 import edu.miu.cs.cs544.service.ProductService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +32,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<ProductDTO> getProduct(int id) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        return ProductDTO.fromOptional(optionalProduct);
+    public ProductDTO getProduct(int id) {
+        Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Product.class, id));
+        return ProductDTO.from(product);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ProductController {
 
     @GetMapping("{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable("id") int id) {
-        return ResponseEntity.of(productService.getProduct(id));
+        return ResponseEntity.ok(productService.getProduct(id));
     }
 
     @PutMapping("{id}")
