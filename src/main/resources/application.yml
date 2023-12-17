@@ -1,6 +1,6 @@
 server:
   servlet:
-    contextPath: /api
+    contextPath: /api/v1
 # spring:
 #   datasource:
 #     url: jdbc:h2:mem:mydb
@@ -25,12 +25,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
   # temp until implementation
-  security:
-    user:
-      name: user
-      password: password
-
-apiPrefix: /api/v1
+#  security:
+#    user:
+#      name: user
+#      password: password
 
 logging:
   level:

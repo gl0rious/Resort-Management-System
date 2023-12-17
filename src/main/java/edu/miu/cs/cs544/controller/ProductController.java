@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.controller;
 
 import edu.miu.cs.cs544.dto.ProductDTO;
 import edu.miu.cs.cs544.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("${apiPrefix}/products")
+@RequestMapping("products")
 public class ProductController {
 
     private final ProductService productService;
@@ -24,7 +25,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody @Valid ProductDTO productDTO) {
         return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
     }
 
@@ -34,7 +35,7 @@ public class ProductController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") int id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") int id, @RequestBody @Valid ProductDTO productDTO) {
         return ResponseEntity.ok(productService.updateProduct(id, productDTO));
     }
 
