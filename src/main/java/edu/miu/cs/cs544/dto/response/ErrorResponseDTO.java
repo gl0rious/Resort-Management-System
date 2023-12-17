@@ -8,9 +8,9 @@ import org.springframework.http.HttpStatusCode;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ErrorResponseDTO {
+public class ErrorResponseDTO<T> {
 
-    private String errorMessage;
+    private T errorMessage;
     private HttpStatusCode statusCode;
 
 }

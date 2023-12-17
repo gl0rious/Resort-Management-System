@@ -1,9 +1,12 @@
 package edu.miu.cs.cs544.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.miu.cs.cs544.domain.AuditData;
 import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.domain.ProductType;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,20 +20,33 @@ import java.util.Optional;
 public class ProductDTO {
     private Integer id;
 
+    @NotBlank
     private String name;
 
     private String description;
 
     private String excerpt;
 
+    @NotNull
     @Enumerated(value = EnumType.STRING)
     private ProductType type;
 
-    private double nightlyRate;
+    @NotNull
+    @Positive
+    private Double nightlyRate;
 
-    private int maximumCapacity;
+    @NotNull
+    @Min(1)
+    @Max(50)
+    private Integer maximumCapacity;
 
+    @JsonIgnore
     private AuditData auditData;
+
+    @JsonProperty("auditData")
+    public AuditData getAuditData() {
+        return auditData;
+    }
 
     public static ProductDTO from(Product product) {
         return new ProductDTO(
