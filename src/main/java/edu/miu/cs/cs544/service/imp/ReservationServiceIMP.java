@@ -1,9 +1,10 @@
 package edu.miu.cs.cs544.service.imp;
 
-import edu.miu.cs.cs544.domain.Product;
+import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.dto.ReservationDTO;
 import edu.miu.cs.cs544.exception.ResourceNotFoundException;
+import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +17,15 @@ public class ReservationServiceIMP implements ReservationService {
 
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
     @Override
     public ReservationDTO createReservation(ReservationDTO reservationDTO) {
-        Reservation ReservationRequest = reservationDTO.to();
-        Reservation reservationResponse = reservationRepository.save(ReservationRequest);
+        Customer customer = customerRepository.findById(reservationDTO.getCustomerID()).orElseThrow(() -> new ResourceNotFoundException(Customer.class, reservationDTO.getCustomerID()));
+        Reservation reservationRequest = reservationDTO.to();
+        reservationRequest.setCustomer(customer);
+        Reservation reservationResponse = reservationRepository.save(reservationRequest);
         return ReservationDTO.from(reservationResponse);
     }
 
@@ -31,14 +36,16 @@ public class ReservationServiceIMP implements ReservationService {
 
     @Override
     public ReservationDTO getReservation(int id) {
-        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Product.class, id));
+        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Reservation.class, id));
         return ReservationDTO.from(reservation);
     }
 
     @Override
     public ReservationDTO updateReservation(int id, ReservationDTO reservationDTO) {
+        Customer customer = customerRepository.findById(reservationDTO.getCustomerID()).orElseThrow(() -> new ResourceNotFoundException(Customer.class, reservationDTO.getCustomerID()));
         Reservation reservationRequest = reservationDTO.to();
         reservationRequest.setId(id);
+        reservationRequest.setCustomer(customer);
         Reservation reservationResponse = reservationRepository.save(reservationRequest);
         return ReservationDTO.from(reservationResponse);
     }

@@ -14,13 +14,13 @@ import java.util.Optional;
 public class ReservationDTO {
 
     private Integer id;
-    private Customer customer;
+    private Integer customerID;
     private ReservationStatus status;
     private List<Item> items;
     private AuditData auditData;
 
     public static ReservationDTO from(Reservation reservation) {
-        return new ReservationDTO(reservation.getId(), reservation.getCustomer(), reservation.getStatus(), reservation.getItems(), reservation.getAuditData());
+        return new ReservationDTO(reservation.getId(), reservation.getCustomer().getId(), reservation.getStatus(), reservation.getItems(), reservation.getAuditData());
     }
 
     public static List<ReservationDTO> fromList(List<Reservation> reservations) {
@@ -32,6 +32,6 @@ public class ReservationDTO {
     }
 
     public Reservation to() {
-        return new Reservation(id, customer, status, items, auditData);
+        return new Reservation(id, new Customer(), status, items, auditData);
     }
 }
