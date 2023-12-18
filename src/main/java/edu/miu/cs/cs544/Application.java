@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544;
 
+import edu.miu.cs.cs544.domain.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
