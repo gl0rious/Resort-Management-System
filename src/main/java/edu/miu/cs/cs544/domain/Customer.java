@@ -31,4 +31,11 @@ public class Customer {
 	private Address billingAddress;
 	@Embedded
 	private AuditData auditData;
+
+	public Customer(String firstName, String lastName, String email) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+
 }

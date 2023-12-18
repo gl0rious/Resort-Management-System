@@ -8,13 +8,8 @@ import lombok.Data;
 @Data
 @Embeddable
 public class AuditData {
-
     private String createdBy;
-
     private String updatedBy;
-
     private LocalDateTime createdOn;
-
     private LocalDateTime updatedOn;
-
 }

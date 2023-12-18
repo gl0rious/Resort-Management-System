@@ -1,6 +1,7 @@
 package edu.miu.cs.cs544.dto.request;
 
 import edu.miu.cs.cs544.domain.Address;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +10,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddressRequest {
+    @NotBlank
     private String line1;
+    @NotBlank
     private String line2;
+    @NotBlank
     private String city;
+    @NotBlank
     private String postalCode;
+    @NotBlank
     private String stateCode;
 
     public static Address to(AddressRequest request) {
