@@ -14,7 +14,7 @@ public class AdminResponse {
     private String userName;
     private UserType type;
 
-    public static AdminResponse to(User user) {
+    public static AdminResponse from(User user) {
         return new AdminResponse(user.getId(), user.getUserName(), user.getType());
     }
 }
