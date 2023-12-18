@@ -49,7 +49,7 @@ public class AdminService {
     }
 
     public List<AdminResponse> getAll() {
-        return userRepository.findAllByUserType(UserType.ADMIN).stream().map(AdminResponse::from)
+        return userRepository.findAllByType(UserType.ADMIN).stream().map(AdminResponse::from)
                 .toList();
     }
 
