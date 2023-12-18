@@ -1,4 +1,4 @@
-package edu.miu.cs.cs544.service.impl;
+package edu.miu.cs.cs544.service;
 
 import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.dto.ProductDTO;
@@ -8,7 +8,6 @@ import edu.miu.cs.cs544.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -39,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO updateProduct(int id, ProductDTO productDTO) {
+        getProduct(id);
         Product productRequest = productDTO.to();
         productRequest.setId(id);
         Product productResponse = productRepository.save(productRequest);
@@ -47,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(int id) {
+        getProduct(id);
         productRepository.deleteById(id);
     }
 
