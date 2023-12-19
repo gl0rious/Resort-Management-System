@@ -2,30 +2,30 @@ package edu.miu.cs.cs544.controller;
 
 import edu.miu.cs.cs544.domain.Item;
 import edu.miu.cs.cs544.domain.Reservation;
-import edu.miu.cs.cs544.repository.ItemRepository;
-import edu.miu.cs.cs544.repository.ReservationRepository;
+import edu.miu.cs.cs544.service.ItemService;
+import edu.miu.cs.cs544.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/items")
 public class ItemController {
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemService itemService;
 
     @Autowired
-    private ReservationRepository reservationRepository;
+    private ReservationService reservationService;
 
 
-    @PostMapping("/items")
+    @PostMapping()
     public ResponseEntity<?> addItem(@RequestBody Item item){
-        Reservation reservation = reservationRepository.findById(item.getOrder().getId()).orElse(null);
+        Reservation reservation = reservationService.getReservation(item.getOrder().getId()).to();
         if (reservation != null) {
             item.setOrder(reservation);
-            Item result = itemRepository.save(item);
+            Item result= itemService.addItem(item);
             return new ResponseEntity <>(result, HttpStatus.OK);
         }
         return null;
@@ -33,16 +33,16 @@ public class ItemController {
 
     @GetMapping("items/{id}")
     public ResponseEntity<?> getItem(@PathVariable int id){
-        Item result = itemRepository.findById(id).orElse(null);
+        Item result = itemService.getItem(id);
         return new ResponseEntity <>(result, HttpStatus.OK);
     }
 
     @PutMapping("/items/{id}")
     public ResponseEntity<?> updateItem(@PathVariable int id, @RequestBody Item item){
-        Reservation reservation = reservationRepository.findById(id).orElse(null);
+        Reservation reservation = reservationService.getReservation(item.getOrder().getId()).to();
         if (reservation != null) {
             item.setOrder(reservation);
-            Item result = itemRepository.save(item);
+            Item result = itemService.updateItem(id, item);
             return new ResponseEntity <>(result, HttpStatus.OK);
         }
         return null;
@@ -50,13 +50,13 @@ public class ItemController {
 
     @GetMapping("/items")
     public ResponseEntity<?> getAllItems(@RequestBody Item item){
-        Item result = itemRepository.save(item);
+        Item result = itemService.addItem(item);
         return new ResponseEntity <>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/items/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable int id){
-        itemRepository.deleteById(id);
+        itemService.deleteItem(id);
         return new ResponseEntity <>(HttpStatus.OK);
     }
 

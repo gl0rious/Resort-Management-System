@@ -32,4 +32,15 @@ public class Item {
 	@Embedded
 	private AuditData auditData;
 
-}
+    public Item(long id, Integer occupants, LocalDate chickinDate, LocalDate checkoutDate, Reservation order, Product product, AuditData auditData) {
+		this.id = (int) id;
+		this.occupants = occupants;
+		this.checkinDate = chickinDate;
+		this.checkoutDate = checkoutDate;
+		this.order = order;
+		this.product = product;
+		this.auditData = auditData;
+	}
+
+    }
+
