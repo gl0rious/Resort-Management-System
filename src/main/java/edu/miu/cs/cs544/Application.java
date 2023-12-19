@@ -8,21 +8,20 @@ import jakarta.transaction.Transactional;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
-
+//
 //	@Autowired
 //	CountryRepository countryRepository;
 //
 //	@Autowired
 //	StateRepository stateRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Transactional
-	@Override
-	public void run(String... args) throws Exception {
-
+    @Transactional
+    @Override
+    public void run(String... args) throws Exception {
 //		 // add 10 countries
 //		 Country US = countryRepository.save(new Country("US", "United States",
 //		 1000000));
@@ -52,7 +51,5 @@ public class Application implements CommandLineRunner {
 //		 state.setCountry(US);
 //		 stateRepository.save(state);
 
-	}
-
-
+    }
 }
