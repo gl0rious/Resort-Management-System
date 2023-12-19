@@ -1,12 +1,16 @@
 package edu.miu.cs.cs544.controller;
 
+import edu.miu.cs.cs544.domain.User;
 import edu.miu.cs.cs544.dto.ReservationDTO;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -17,8 +21,13 @@ public class ReservationController {
     ReservationService reservationService;
 
     @GetMapping
-    public ResponseEntity<?> getAllReservations() {
-        return ResponseEntity.ok(reservationService.getAllReservations());
+    public ResponseEntity<?> getAllReservations(@AuthenticationPrincipal UserDetails userDetails) {
+        // if (userDetails == null) {
+        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        // }
+        // User user = (User)userDetails;
+        // if (user.)
+            return ResponseEntity.ok(reservationService.getAllReservations());
     }
 
     @PostMapping
