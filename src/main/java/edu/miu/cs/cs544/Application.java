@@ -14,11 +14,11 @@ import jakarta.transaction.Transactional;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-	@Autowired
-	CountryRepository countryRepository;
+	// @Autowired
+	// CountryRepository countryRepository;
 
-	@Autowired
-	StateRepository stateRepository;
+	// @Autowired
+	// StateRepository stateRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
