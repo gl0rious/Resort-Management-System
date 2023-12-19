@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +27,7 @@ public class CustomerController {
     @GetMapping
     public ResponseEntity<?> getAll() {
         List<CustomerResponse> response = customerService.getAll();
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping
@@ -45,6 +44,6 @@ public class CustomerController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable int id) {
         CustomerResponse response = customerService.getById(id);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 }
