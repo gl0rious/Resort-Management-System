@@ -10,6 +10,9 @@ server:
 #   jpa:
 #     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
 
+jwt:
+  secret: SECRET$AcxfH1ppMgEXCRs-lMDtKHbIVrUWmrl6-yY$JWT
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/RMS?useSSL=false&serverTimezone=UTC
