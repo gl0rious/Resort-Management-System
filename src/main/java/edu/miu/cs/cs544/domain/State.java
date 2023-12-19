@@ -23,8 +23,9 @@ public class State {
 	@Embedded
 	private AuditData auditData;
 
-	public State(String code, String name) {
+	public State(String code, String name, Country country) {
 		this.code = code;
 		this.name = name;
+		this.country = country;
 	}
 }

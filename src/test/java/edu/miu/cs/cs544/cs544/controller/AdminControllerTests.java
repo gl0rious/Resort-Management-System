@@ -64,7 +64,6 @@ public class AdminControllerTests {
                 .content(json)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
-        // verify(adminService, times(1)).create(admin);
     }
 
 }
