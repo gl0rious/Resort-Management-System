@@ -48,7 +48,7 @@ public class ItemController {
         return null;
     }
 
-    @GetMapping("/items")
+    @GetMapping("/")
     public ResponseEntity<?> getAllItems(@RequestBody Item item){
         Item result = itemService.addItem(item);
         return new ResponseEntity <>(result, HttpStatus.OK);
