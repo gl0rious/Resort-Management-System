@@ -5,7 +5,7 @@ import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.domain.ReservationStatus;
 import edu.miu.cs.cs544.dto.ReservationDTO;
 import edu.miu.cs.cs544.repository.ReservationRepository;
-import edu.miu.cs.cs544.service.ReservationServiceIMP;
+import edu.miu.cs.cs544.service.impl.ReservationServiceIMP;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
