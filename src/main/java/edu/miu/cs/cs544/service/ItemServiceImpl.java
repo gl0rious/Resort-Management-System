@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.cs.cs544.domain.Item;
 import edu.miu.cs.cs544.domain.Reservation;
+import edu.miu.cs.cs544.dto.response.ItemDTO;
 import edu.miu.cs.cs544.repository.ItemRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.ItemService;
@@ -20,7 +21,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
 
-    public Item addItem(Item item) {
+    public Item addItem(ItemDTO item) {
         Reservation reservation = reservationRepository.findById(item.getOrder().getId()).orElse(null);
         if (reservation != null) {
             item.setOrder(reservation);
