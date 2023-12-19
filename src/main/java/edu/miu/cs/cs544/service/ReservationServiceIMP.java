@@ -7,6 +7,7 @@ import edu.miu.cs.cs544.exception.ResourceNotFoundException;
 import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.ReservationService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
