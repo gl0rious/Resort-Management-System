@@ -10,15 +10,11 @@ import edu.miu.cs.cs544.repository.CustomerRepository;
 import edu.miu.cs.cs544.repository.ProductRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.ReservationService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -64,14 +60,7 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Reservation.class, id));
         checkReservationOwner(reservation);
         ReservationStatus status = request.getStatus();
-
-        if (getUserFromAuth().getType().equals(UserType.CLIENT) &&
-                (reservation.getStatus().equals(ReservationStatus.PROCESSED ||
-                reservation.getStatus().equals(ReservationStatus.ARRIVED)) ||
-                reservation.getStatus().equals(ReservationStatus.DEPARTED) ||
-                reservation.getStatus().equals(ReservationStatus.CANCELLED))
-
-        checkUpdateStatus(request.getStatus());
+        checkUpdateStatus(status, reservation.getStatus());
         reservation.setStatus(status);
         Reservation reservationRes = reservationRepository.save(reservation);
         return ReservationResponse.from(reservationRes);
@@ -109,28 +98,26 @@ public class ReservationServiceImpl implements ReservationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Access Denied: Client doesn't own this reservation");
     }
 
-    private void checkUpdateStatus(ReservationStatus statusFromRequest) {
+    private void checkUpdateStatus(ReservationStatus statusFromRequest, ReservationStatus statusFromDB) {
         User user = getUserFromAuth();
 
         // Admin should not be able to change status to NEW OR PLACED
         if (user.getType().equals(UserType.ADMIN) &&
                 (statusFromRequest.equals(ReservationStatus.NEW) ||
                 statusFromRequest.equals(ReservationStatus.PLACED)))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, statusFromRequest.);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are forbidden to change status to " + statusFromRequest);
 
+        if (user.getType().equals(UserType.CLIENT) &&
+                (statusFromRequest.equals(ReservationStatus.ARRIVED) ||
+                        statusFromRequest.equals(ReservationStatus.DEPARTED) ||
+                        statusFromRequest.equals(ReservationStatus.CANCELLED)))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are forbidden to change status to " + statusFromRequest);
 
-        if (user.getType().equals(UserType.ADMIN) && (status.equals(ReservationStatus.NEW) ||
-                status.equals(ReservationStatus.PLACED) ||
-                status.equals(ReservationStatus.CANCELLED))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update reservation status to " + status);
-        }
-
-
-        if (user.getType().equals(UserType.CLIENT) && (status.equals(ReservationStatus.PROCESSED) ||
-                    status.equals(ReservationStatus.ARRIVED) ||
-                    status.equals(ReservationStatus.DEPARTED) ||
-                    status.equals(ReservationStatus.CANCELLED))) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Cannot update reservation status to " + status);
-        }
+        if (user.getType().equals(UserType.CLIENT) &&
+                (statusFromDB.equals(ReservationStatus.PROCESSED) ||
+                        statusFromDB.equals(ReservationStatus.ARRIVED) ||
+                        statusFromDB.equals(ReservationStatus.DEPARTED) ||
+                        statusFromDB.equals(ReservationStatus.CANCELLED)))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are forbidden to change status to " + statusFromRequest);
     }
 }
