@@ -3,6 +3,7 @@ package edu.miu.cs.cs544.controller;
 import edu.miu.cs.cs544.domain.Item;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.dto.ReservationDTO;
+import edu.miu.cs.cs544.dto.response.ReservationResponse;
 import edu.miu.cs.cs544.service.ItemService;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ class ItemControllerTest {
         Reservation reservation = new Reservation();
         item.setOrder(reservation);
 
-        when(reservationService.getReservation(item.getOrder().getId())).thenReturn(ReservationDTO.from(reservation));
+        when(reservationService.getReservation(item.getOrder().getId())).thenReturn(ReservationResponse.from(reservation));
         when(itemService.addItem(item)).thenReturn(item);
         ResponseEntity<?> responseEntity = itemController.addItem(item);
         verify(reservationService, times(1)).getReservation(item.getOrder().getId());
@@ -65,7 +66,7 @@ class ItemControllerTest {
         Item item = new Item();
         Reservation reservation = new Reservation();
         item.setOrder(reservation);
-        when(reservationService.getReservation(item.getOrder().getId())).thenReturn(ReservationDTO.from(reservation));
+        when(reservationService.getReservation(item.getOrder().getId())).thenReturn(ReservationResponse.from(reservation));
         when(itemService.updateItem(anyInt(), any(Item.class))).thenReturn(item);
 
         ResponseEntity<?> responseEntity = itemController.updateItem(1, item);
