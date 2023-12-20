@@ -1,0 +1,85 @@
+name: Build, Push, and Deploy Docker Images
+
+on:
+  push:
+    branches:
+      - deployment
+
+jobs:
+  build-and-push-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and push app Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile-app
+          push: true
+          tags: nasanbuyan/team7-rms-app:latest
+
+  build-and-push-mysql:
+    runs-on: ubuntu-latest
+    needs: build-and-push-app
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build and push MySQL Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile-db
+          push: true
+          tags: nasanbuyan/mysql:5.7
+
+  deploy-to-azure-vm:
+    runs-on: ubuntu-latest
+    needs: [build-and-push-app, build-and-push-mysql]
+    steps:
+      - name: Deploy to Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AZURE_VM_IP }}
+          username: ${{ secrets.AZURE_VM_USERNAME }}
+          key: ${{ secrets.AZURE_VM_SSH_KEY }}
+          script: |
+            # Log in to Docker Hub
+            echo "Logging in to Docker Hub..."
+            echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+
+            # Pull the latest Docker images
+            #echo "Pulling the latest Docker images..."
+            docker pull nasanbuyan/team7-rms-app:latest
+            docker pull nasanbuyan/mysql:5.7
+            
+            docker stop app-container || true
+            docker rm app-container || true
+            docker stop mysql-container || true
+            docker rm mysql-container || true
+
+            # Start MySQL container
+            echo "Starting new MySQL container..."
+            docker run --name mysql-container -d  -e MYSQL_DATABASE=RMS -e MYSQL_USER=rms  -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 nasanbuyan/mysql:5.7
+
+            # Wait for MySQL to initialize...
+            echo "Waiting for MySQL to initialize..."
+            sleep 30
+
+            # Start App container
+            echo "Starting new App container..."
+            docker run --name app-container -d -e 'SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/RMS?useSSL=false&serverTimezone=UTC' -e SPRING_DATASOURCE_USERNAME=rms -e SPRING_DATASOURCE_PASSWORD=password -p 80:8080 --link mysql-container:mysql nasanbuyan/team7-rms-app:latest

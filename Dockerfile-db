@@ -1,0 +1,17 @@
+# Use the official MySQL image
+FROM mysql:5.7
+
+# Set the required environment variables
+ENV MYSQL_DATABASE RMS
+ENV MYSQL_USER rms
+ENV MYSQL_PASSWORD password
+ENV MYSQL_ROOT_PASSWORD password
+
+# Expose the default MySQL port
+EXPOSE 3306
+
+# Healthcheck to ensure MySQL is running
+HEALTHCHECK --interval=10s --timeout=20s --retries=10 \
+  CMD mysqladmin ping -h localhost
+
+# The entrypoint is already set in the official image

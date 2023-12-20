@@ -1,35 +1,36 @@
 version: '3'
+
 services:
-  #database:
   mysql:
     container_name: mysql
-    image: mysql
+    image: mysql:5.7
     environment:
-      - MYSQL_ROOT_PASSWORD=password
+      MYSQL_DATABASE: 'RMS'
+      MYSQL_USER: 'rms'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
     ports:
       - "3306:3306"
-    networks:
-      - reservation_management_network
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 20s
+      retries: 10
 
-  # monitoring
-  prometheus:
-    image: prom/prometheus
-    container_name: prometheus
-    restart: always
+  app:
+    container_name: spring-boot-app
+    image: nasanbuyan/team7-rms-app:latest
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/RMS?useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: rms
+      SPRING_DATASOURCE_PASSWORD: password
     ports:
-      - "9090:9090"
-    networks:
-      - reservation_management_network
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
 
-  grafana:
-    image: grafana/grafana:latest
-    container_name: grafana
-    restart: always
-    ports:
-      - "3000:3000"
-    networks:
-      - reservation_management_network
-
-networks:
-  reservation_management_network:
-    external: true
+volumes:
+  mysql-data:
