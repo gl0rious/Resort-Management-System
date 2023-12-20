@@ -21,7 +21,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
 
-    public Item addItem(ItemDTO item) {
+    public Item addItem(Item item) {
         Reservation reservation = reservationRepository.findById(item.getOrder().getId()).orElse(null);
         if (reservation != null) {
             item.setOrder(reservation);

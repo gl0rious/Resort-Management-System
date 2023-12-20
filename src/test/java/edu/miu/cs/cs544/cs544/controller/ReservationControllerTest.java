@@ -1,6 +1,5 @@
 package edu.miu.cs.cs544.cs544.controller;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.miu.cs.cs544.controller.ReservationController;
 import edu.miu.cs.cs544.domain.Customer;
@@ -61,7 +60,9 @@ public class ReservationControllerTest {
         reservation.setCustomer(customer);
 
         Mockito.when(reservationService.getReservation(999)).thenReturn(ReservationDTO.from(reservation));
-        mock.perform(MockMvcRequestBuilders.get("/api/v1/reservations/{id}", 999).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
+        mock.perform(
+                MockMvcRequestBuilders.get("/api/v1/reservations/{id}", 999).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -79,10 +80,33 @@ public class ReservationControllerTest {
 
         Mockito.when(reservationService.createReservation(reservationDTO)).thenReturn(ReservationDTO.from(reservation));
         mock.perform(MockMvcRequestBuilders.post("/reservations").contentType(MediaType.APPLICATION_JSON)
-                        .with(SecurityMockMvcRequestPostProcessors.csrf())
-                        .content(json))
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .content(json))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
 
     }
+
+    @Test
+    @WithMockUser(username = "mahmoud", roles = "USER")
+    public void shouldReturnReservation_WhenCustomerIsOwner() throws Exception {
+        Reservation reservation = new Reservation();
+        reservation.setId(1);
+        reservation.setStatus(ReservationStatus.NEW);
+        Customer customer = new Customer();
+        customer.setId(2);
+        reservation.setCustomer(customer);
+        ReservationDTO reservationDTO = ReservationDTO.from(reservation);
+
+        String json = objectMapper.writeValueAsString(reservationDTO);
+
+        Mockito.when(reservationService.createReservation(reservationDTO)).thenReturn(ReservationDTO.from(reservation));
+        mock.perform(MockMvcRequestBuilders.post("/reservations").contentType(MediaType.APPLICATION_JSON)
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .content(json))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
+
+    }
+
 }

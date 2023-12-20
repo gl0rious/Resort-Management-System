@@ -1,6 +1,8 @@
 package edu.miu.cs.cs544.controller;
 
+import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.User;
+import edu.miu.cs.cs544.domain.UserType;
 import edu.miu.cs.cs544.dto.ReservationDTO;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.List;
 
 @RestController
 @RequestMapping("/reservations")
@@ -22,16 +21,18 @@ public class ReservationController {
 
     @GetMapping
     public ResponseEntity<?> getAllReservations(@AuthenticationPrincipal UserDetails userDetails) {
-        // if (userDetails == null) {
-        //     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        // }
-        // User user = (User)userDetails;
-        // if (user.)
-            return ResponseEntity.ok(reservationService.getAllReservations());
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        User user = (User) userDetails;
+        Customer customer = user.getCustomer();
+        if (user.getType() == UserType.CLIENT)
+            return ResponseEntity.ok(reservationService.getAllReservationsByCustomer(customer));
+        return ResponseEntity.ok(reservationService.getAllReservations());
     }
 
     @PostMapping
-    public ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservationDTO) {
+    ResponseEntity<ReservationDTO> createReservation(@RequestBody ReservationDTO reservationDTO) {
         return new ResponseEntity<>(reservationService.createReservation(reservationDTO), HttpStatus.CREATED);
     }
 
