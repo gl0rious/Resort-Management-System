@@ -6,10 +6,14 @@ import edu.miu.cs.cs544.domain.AuditData;
 import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.domain.ProductType;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.List;
 import java.util.Optional;
