@@ -57,6 +57,10 @@ public class Application implements CommandLineRunner {
 //		 state.setCountry(US);
 		 stateRepository.save(state);
 
+		state = new State("IA", "Fairfield",US);
+//		 state.setCountry(US);
+		stateRepository.save(state);
+
 	}
 
 }

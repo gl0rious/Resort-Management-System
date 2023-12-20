@@ -6,7 +6,7 @@ services:
     image: mysql:5.7
     environment:
       MYSQL_DATABASE: 'RMS'
-      MYSQL_USER: 'root'
+      MYSQL_USER: 'rms'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
     ports:
@@ -24,7 +24,7 @@ services:
     image: nasanbuyan/team7-rms-app:latest
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/RMS?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_USERNAME: rms
       SPRING_DATASOURCE_PASSWORD: password
     ports:
       - "8080:8080"
