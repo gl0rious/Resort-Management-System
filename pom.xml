@@ -12,6 +12,7 @@
 	<artifactId>cs544-2023-12-project</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>cs544-2023-12-project</name>
+	<packaging>jar</packaging>
 	<description>Project Implementation for CS544-2023-12</description>
 	<properties>
 		<java.version>21</java.version>
