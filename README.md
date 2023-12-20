@@ -38,6 +38,13 @@
 
 <img src="https://github.com/gl0rious/Resort-Management-System/blob/staging/testimg.png" >
 
+## Agile Methodology(Trello)
+
+<img src="https://github.com/gl0rious/Resort-Management-System/blob/main/agile1Img.png" >
+
+<img src="https://github.com/gl0rious/Resort-Management-System/blob/main/agile2Img.png" >
+
+
 ## Presention
 * [Presention](https://docs.google.com/presentation/d/1iH4saG0KtScrz6FN7dTskRmYbwO6VzbS/edit?usp=sharing&ouid=109376219380936959710&rtpof=true&sd=true) - check our Presentation.
 
