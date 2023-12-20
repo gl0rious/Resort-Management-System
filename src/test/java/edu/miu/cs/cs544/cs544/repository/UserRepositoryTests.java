@@ -9,6 +9,7 @@ import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.User;
 import edu.miu.cs.cs544.domain.UserType;
 import edu.miu.cs.cs544.repository.UserRepository;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -31,6 +32,7 @@ public class UserRepositoryTests {
     public void should_ReturnCustomer_When_UserExists() {
         User user = new User("bob", "pass", UserType.CLIENT);
         Customer customer = new Customer("Bob", "Mark", "bmark@gmail.com");
+        entityManager.persist(customer);
         user.setCustomer(customer);
         entityManager.persist(user);
         entityManager.flush();
