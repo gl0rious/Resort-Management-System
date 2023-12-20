@@ -27,8 +27,8 @@ public class ApplicationRunner implements CommandLineRunner {
         userRepository.save(new User("nasa", encoder.encode("password"), UserType.ADMIN));
         userRepository.save(new User("emanuel", encoder.encode("password"), UserType.ADMIN));
 
-//        AddressRequest addressRequest = new AddressRequest("1000 N 4th St", null, "Fairfield", "52557", "IA");
-//        CustomerRequest customerRequest = new CustomerRequest("john", "password", "John", "Doe", "johndoe@est.com", addressRequest, addressRequest);
-//        customerService.create(customerRequest);
+        AddressRequest addressRequest = new AddressRequest("1000 N 4th St", null, "Fairfield", "52557", "CA");
+        CustomerRequest customerRequest = new CustomerRequest("john", "password", "John", "Doe", "johndoe@est.com", addressRequest, addressRequest);
+        customerService.create(customerRequest);
     }
 }

@@ -28,7 +28,7 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		// // add 10 countries
+		 // add 10 countries
 		 Country US = countryRepository.save(new Country("US", "United States",
 		 1000000));
 		 countryRepository.save(new Country("CA", "Canada", 500000));
@@ -42,25 +42,19 @@ public class Application implements CommandLineRunner {
 		 countryRepository.save(new Country("CN", "China", 700000));
 
 		 State state = new State("CA", "California", US);
-//		 state.setCountry(US);
 		 stateRepository.save(state);
 
 		 state = new State("TX", "Texas",US);
-//		 state.setCountry(US);
 		 stateRepository.save(state);
 
 		 state = new State("FL", "Florida",US);
-//		 state.setCountry(US);
 		 stateRepository.save(state);
 
 		 state = new State("NY", "New York",US);
-//		 state.setCountry(US);
 		 stateRepository.save(state);
 
 		state = new State("IA", "Fairfield",US);
-//		 state.setCountry(US);
 		stateRepository.save(state);
-
 	}
 
 }
