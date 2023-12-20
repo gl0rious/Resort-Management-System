@@ -5,11 +5,13 @@ import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.repository.ItemRepository;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.ItemService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Transactional
 @Service
 public class ItemServiceImpl implements ItemService {
     @Autowired
