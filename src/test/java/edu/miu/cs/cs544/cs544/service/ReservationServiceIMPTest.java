@@ -5,7 +5,7 @@ import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.domain.ReservationStatus;
 import edu.miu.cs.cs544.dto.ReservationDTO;
 import edu.miu.cs.cs544.repository.ReservationRepository;
-import edu.miu.cs.cs544.service.impl.ReservationServiceIMP;
+import edu.miu.cs.cs544.service.impl.ReservationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ReservationServiceIMPTest {
 
     @Autowired
-    private ReservationServiceIMP reservationServiceIMP;
+    private ReservationServiceImpl reservationServiceIMP;
     @MockBean
     private ReservationRepository reservationRepository;
 

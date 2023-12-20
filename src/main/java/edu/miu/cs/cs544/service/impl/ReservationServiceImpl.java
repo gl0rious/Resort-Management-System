@@ -15,7 +15,7 @@ import java.security.Principal;
 import java.util.List;
 
 @Service
-public class ReservationServiceIMP implements ReservationService {
+public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     ReservationRepository reservationRepository;
