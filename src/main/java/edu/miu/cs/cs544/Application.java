@@ -41,22 +41,20 @@ public class Application implements CommandLineRunner {
 		 countryRepository.save(new Country("JP", "Japan", 600000));
 		 countryRepository.save(new Country("CN", "China", 700000));
 
-		 State state = new State("CA", "California",US);
-		 state.setCountry(US);
+		 State state = new State("CA", "California", US);
 		 stateRepository.save(state);
 
-		 state = new State("TX", "Texas",US);
-		 state.setCountry(US);
+		 state = new State("IA", "California", US);
+		stateRepository.save(state);
+
+		 state = new State("TX", "Texas", US);
 		 stateRepository.save(state);
 
-		 state = new State("FL", "Florida",US);
-		 state.setCountry(US);
+		 state = new State("FL", "Florida", US);
 		 stateRepository.save(state);
 
-		 state = new State("NY", "New York",US);
-		 state.setCountry(US);
+		 state = new State("NY", "New York", US);
 		 stateRepository.save(state);
-
 	}
 
 }

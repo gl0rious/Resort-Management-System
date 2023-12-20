@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Item {
 	private LocalDate checkoutDate;
 
 	@ManyToOne
+	@JsonIgnore
 	private Reservation order;
 
 	@ManyToOne
@@ -42,5 +44,5 @@ public class Item {
 		this.auditData = auditData;
 	}
 
-    }
+}
 
