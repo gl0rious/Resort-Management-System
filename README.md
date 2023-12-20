@@ -32,15 +32,11 @@
 
 ## Architecture
 
-> **Presenation Layer**  Contains only ui logic and operating system interactions. 
-
-> **Domain Layer**  Contains business logic.
-
-> **Data Layer**  Contains app data classes and sources.
+<img src="https://github.com/gl0rious/Resort-Management-System/blob/staging/archImg.png" >
 
 ## Unit Test
 
-<img src="https://github.com/mmahmoudothman/ChargeStation/blob/master/unit_test.png" >
+<img src="https://github.com/gl0rious/Resort-Management-System/blob/staging/testimg.png" >
 
 ## Presention
 * [Presention](https://docs.google.com/presentation/d/1iH4saG0KtScrz6FN7dTskRmYbwO6VzbS/edit?usp=sharing&ouid=109376219380936959710&rtpof=true&sd=true) - check our Presentation.
