@@ -20,7 +20,7 @@
 * An address has a State and a State belongs to a Country.
 * A Reservation can be in multiple states: New, Placed, Processed (payment is processed), Arrived, Departed or Cancelled
 * To use the system, each customer has to create a "User" account (with a username and a password).
-* There are two basic user types in the system: Admin and Client.
+* There are two basic user types in the system: Admin and Client. Change for the ci/cd pipeline on main branch.
 
 ## Libraries Used
 ====
