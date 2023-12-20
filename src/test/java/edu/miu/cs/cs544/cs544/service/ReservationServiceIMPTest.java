@@ -44,14 +44,14 @@ public class ReservationServiceIMPTest {
 
     @Test
     public void whenValidReservationThenReservationShouldBeFound() {
-        ReservationResponse found = reservationServiceIMP.getReservation(1);
+        ReservationResponse found = reservationService.getReservation(1);
         assertThat(found.getId()).isEqualTo(1);
         assertThat(found.getCustomer().getId()).isEqualTo(2);
     }
 
     @Test
     public void whenUpdateReservationThenReservationShouldBeFound() {
-        ReservationResponse found = reservationServiceIMP.getReservation(1);
+        ReservationResponse found = reservationService.getReservation(1);
         assertThat(found.getId()).isEqualTo(1);
         assertThat(found.getCustomer().getId()).isEqualTo(2);
         assertThat(found.getStatus()).isEqualTo(ReservationStatus.ARRIVED);
