@@ -3,7 +3,7 @@ name: Build, Push, and Deploy Docker Images
 on:
   push:
     branches:
-      - main
+      - deployment
 
 jobs:
   build-and-push-app:
