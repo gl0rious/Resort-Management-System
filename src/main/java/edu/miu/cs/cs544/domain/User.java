@@ -13,7 +13,6 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -41,7 +40,7 @@ public class User implements UserDetails {
 
 	private Boolean active;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user")
 	private Customer customer;
 
 	@Enumerated(value = EnumType.STRING)
