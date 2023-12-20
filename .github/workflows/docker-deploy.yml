@@ -82,10 +82,4 @@ jobs:
 
             # Start App container
             echo "Starting new App container..."
-            docker run --name app-container -d \
-              -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/RMS?useSSL=false&serverTimezone=UTC \
-              -e SPRING_DATASOURCE_USERNAME=rms \
-              -e SPRING_DATASOURCE_PASSWORD=password \
-              -p 8080:8080 \
-              --link mysql-container:mysql \
-              nasanbuyan/team7-rms-app:latest
+            docker run --name app-container -d -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/RMS?useSSL=false&serverTimezone=UTC -e SPRING_DATASOURCE_USERNAME=rms -e SPRING_DATASOURCE_PASSWORD=password -p 8080:8080 --link mysql-container:mysql nasanbuyan/team7-rms-app:latest
