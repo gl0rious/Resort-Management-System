@@ -7,6 +7,20 @@
   The goal of this project is to give you hands-on, practical experience with building a RESTful system of microservices using Spring, Spring MVC, Spring Boot, Spring Data JPA and 
   Spring Cloud Services.
 
+## Checklist
+#  Main 
+- [x] Task 1 (completed): UML Digram
+- [x] Task 2 (completed): Architectural Analysis and design
+- [x] Task 3 (completed): Divide and conquer 
+
+#  Extra Credit 
+- [x] Task 1 (completed): Deploy application to the cloud(Azure)
+- [x] Task 2 (completed): Use Spring Sceurity for Authentication using JWD 
+- [x] Task 3 (completed): Automation pipleline 
+- [x] Task 4 (completed): Code quality using SonarLint
+- [x] Task 5 (completed): Design arch for the application
+
+
 # Features:
 ----
 * The resort sells many types of products (rooms, villas, cottages, beach tents, etc.)
@@ -44,6 +58,9 @@
 
 <img src="https://github.com/gl0rious/Resort-Management-System/blob/main/agile2Img.png" >
 
+## SonarLint
+
+<img src="https://github.com/gl0rious/Resort-Management-System/blob/main/sonarlintImg.png" >
 
 ## Presention
 * [Presention](https://docs.google.com/presentation/d/1iH4saG0KtScrz6FN7dTskRmYbwO6VzbS/edit?usp=sharing&ouid=109376219380936959710&rtpof=true&sd=true) - check our Presentation.
