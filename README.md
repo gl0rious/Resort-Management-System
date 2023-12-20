@@ -8,7 +8,7 @@
   Spring Cloud Services.
 
 # Features:
-====
+----
 * The resort sells many types of products (rooms, villas, cottages, beach tents, etc.)
 * products are normally sold based on a nightly rate (total price depends on the number of nights of stay)
 * Each product has a name, description and a nightly rate. It also has a maximum capacity or number of beds.
@@ -23,9 +23,27 @@
 * There are two basic user types in the system: Admin and Client.
 
 ## Libraries Used
-====
+----
 * [Validation](https://beanvalidation.org) - Jakarta Bean Validation Constrain once, validate everywhere.
 * [spring security](https://docs.spring.io/spring-security/reference/getting-spring-security.html) - starter that aggregates Spring Security-related dependencies.
 * [Lombok](https://projectlombok.org) -  spicing up your java Never write another getter or equals method again.
 * [Mysql](https://dev.mysql.com/downloads/connector/j/5.1.html) - our Database Driver .
 * [Sonarlint](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode) - Use with SonarQube & SonarCloud for optimal team performance..
+
+## Architecture
+
+> **Presenation Layer**  Contains only ui logic and operating system interactions. 
+
+> **Domain Layer**  Contains business logic.
+
+> **Data Layer**  Contains app data classes and sources.
+
+## Unit Test
+
+<img src="https://github.com/mmahmoudothman/ChargeStation/blob/master/unit_test.png" >
+
+## Presention
+* [Presention](https://docs.google.com/presentation/d/1iH4saG0KtScrz6FN7dTskRmYbwO6VzbS/edit?usp=sharing&ouid=109376219380936959710&rtpof=true&sd=true) - check our Presentation.
+
+  
+
