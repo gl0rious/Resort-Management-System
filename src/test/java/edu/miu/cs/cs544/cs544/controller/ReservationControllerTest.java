@@ -7,6 +7,7 @@ import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.domain.ReservationStatus;
 import edu.miu.cs.cs544.dto.ReservationDTO;
+import edu.miu.cs.cs544.dto.response.ReservationResponse;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -44,7 +45,7 @@ public class ReservationControllerTest {
         customer.setId(2);
         reservation.setCustomer(customer);
 
-        Mockito.when(reservationService.getReservation(1)).thenReturn(ReservationDTO.from(reservation));
+        Mockito.when(reservationService.getReservation(1)).thenReturn(ReservationResponse.from(reservation));
         mock.perform(MockMvcRequestBuilders.get("/reservations/1").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(1));
@@ -60,7 +61,7 @@ public class ReservationControllerTest {
         customer.setId(2);
         reservation.setCustomer(customer);
 
-        Mockito.when(reservationService.getReservation(999)).thenReturn(ReservationDTO.from(reservation));
+        Mockito.when(reservationService.getReservation(999)).thenReturn(ReservationResponse.from(reservation));
         mock.perform(MockMvcRequestBuilders.get("/api/v1/reservations/{id}", 999).contentType(MediaType.APPLICATION_JSON)).andExpect(status().isNotFound());
     }
 
@@ -77,7 +78,7 @@ public class ReservationControllerTest {
 
         String json = objectMapper.writeValueAsString(reservationDTO);
 
-        Mockito.when(reservationService.createReservation(reservationDTO)).thenReturn(ReservationDTO.from(reservation));
+        Mockito.when(reservationService.createReservation(reservationDTO)).thenReturn(ReservationResponse.from(reservation));
         mock.perform(MockMvcRequestBuilders.post("/reservations").contentType(MediaType.APPLICATION_JSON)
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .content(json))

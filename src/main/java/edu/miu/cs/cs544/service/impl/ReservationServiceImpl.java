@@ -64,6 +64,13 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Reservation.class, id));
         checkReservationOwner(reservation);
         ReservationStatus status = request.getStatus();
+
+        if (getUserFromAuth().getType().equals(UserType.CLIENT) &&
+                (reservation.getStatus().equals(ReservationStatus.PROCESSED ||
+                reservation.getStatus().equals(ReservationStatus.ARRIVED)) ||
+                reservation.getStatus().equals(ReservationStatus.DEPARTED) ||
+                reservation.getStatus().equals(ReservationStatus.CANCELLED))
+
         checkUpdateStatus(request.getStatus());
         reservation.setStatus(status);
         Reservation reservationRes = reservationRepository.save(reservation);
@@ -102,8 +109,15 @@ public class ReservationServiceImpl implements ReservationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Access Denied: Client doesn't own this reservation");
     }
 
-    private void checkUpdateStatus(ReservationStatus status) {
+    private void checkUpdateStatus(ReservationStatus statusFromRequest) {
         User user = getUserFromAuth();
+
+        // Admin should not be able to change status to NEW OR PLACED
+        if (user.getType().equals(UserType.ADMIN) &&
+                (statusFromRequest.equals(ReservationStatus.NEW) ||
+                statusFromRequest.equals(ReservationStatus.PLACED)))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, statusFromRequest.);
+
 
         if (user.getType().equals(UserType.ADMIN) && (status.equals(ReservationStatus.NEW) ||
                 status.equals(ReservationStatus.PLACED) ||
