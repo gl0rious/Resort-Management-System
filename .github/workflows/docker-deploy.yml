@@ -66,23 +66,11 @@ jobs:
             echo "Pulling the latest Docker images..."
             docker pull nasanbuyan/team7-rms-app:latest
             docker pull nasanbuyan/mysql:5.7
-
-            # Stop and remove the existing container if it's already running
-            if [ $(docker ps -q -f name=app-container) ]; then
-              echo "Container my-container exists, stopping and removing it..."
-              docker stop app-container
-              docker rm app-container
-            else
-              echo "Container app-container does not exist, no action needed."
-            fi
-
-            if [ $(docker ps -q -f name=mysql-container) ]; then
-              echo "Container my-container exists, stopping and removing it..."
-              docker stop mysql-container
-              docker rm mysql-container
-            else
-              echo "Container app-container does not exist, no action needed."
-            fi
+            
+            docker stop app-container || true
+            docker rm app-container || true
+            docker stop mysql-container || true
+            docker rm mysql-container || true
 
             # Start MySQL container
             echo "Starting new MySQL container..."
