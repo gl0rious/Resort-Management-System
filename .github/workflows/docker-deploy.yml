@@ -87,7 +87,7 @@ jobs:
             # Start MySQL container
             echo "Starting new MySQL container..."
             docker run --name mysql-container -d \
-              -e MYSQL_DATABASE=rms \
+              -e MYSQL_DATABASE=RMS \
               -e MYSQL_USER=rms \
               -e MYSQL_PASSWORD=password \
               -e MYSQL_ROOT_PASSWORD=password \
