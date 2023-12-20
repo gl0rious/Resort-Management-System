@@ -12,7 +12,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -21,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.miu.cs.cs544.controller.AdminController;
 import edu.miu.cs.cs544.controller.CustomerController;
+import edu.miu.cs.cs544.controller.SpringSecurityWebTestConfig;
 import edu.miu.cs.cs544.domain.Country;
 import edu.miu.cs.cs544.domain.State;
 import edu.miu.cs.cs544.domain.UserType;
@@ -35,6 +38,7 @@ import edu.miu.cs.cs544.service.AdminService;
 import edu.miu.cs.cs544.service.CustomerService;
 
 @WebMvcTest(CustomerController.class)
+@Import(SpringSecurityWebTestConfig.class)
 public class CustomerControllerTests {
 
     @MockBean
@@ -60,6 +64,7 @@ public class CustomerControllerTests {
     // }
 
     @Test
+    @WithMockUser
     public void should_ReturnCustomer_When_CustomerExists() throws Exception {
         CustomerResponse customer = new CustomerResponse();
         customer.setId(1);
@@ -81,6 +86,7 @@ public class CustomerControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void should_CreateCustomer_When_CustomerPosted() throws Exception {
         CustomerRequest request = new CustomerRequest();
         request.setFirstName("Bob");

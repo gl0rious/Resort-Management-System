@@ -37,7 +37,18 @@ public class ReservationController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ReservationDTO> getReservation(@PathVariable("id") int id) {
+    public ResponseEntity<ReservationDTO> getReservation(@PathVariable("id") int id,
+            @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        User user = (User) userDetails;
+        Customer customer = user.getCustomer();
+        if (user.getType() == UserType.CLIENT) {
+            ReservationDTO reservation = reservationService.getReservation(id);
+            if (reservation.getCustomerID() != customer.getId())
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
         return ResponseEntity.ok(reservationService.getReservation(id));
     }
 

@@ -15,3 +15,5 @@
 #   h2:
 #     console:
 #       enabled: false
+jwt:
+  secret: SECRET$AcxfH1ppMgEXCRs-lMDtKHbIVrUWmrl6-yY$JWT

@@ -7,15 +7,21 @@ import edu.miu.cs.cs544.service.ItemService;
 import edu.miu.cs.cs544.service.ReservationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.junit.jupiter.api.BeforeEach;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
 @WebMvcTest(ItemController.class)
+@Import(SpringSecurityWebTestConfig.class)
 class ItemControllerTest {
 
     @InjectMocks
@@ -33,6 +39,7 @@ class ItemControllerTest {
     }
 
     @Test
+    @WithMockUser
     void testAddItem() {
         Item item = new Item();
         Reservation reservation = new Reservation();
@@ -75,7 +82,6 @@ class ItemControllerTest {
         assert responseEntity.getStatusCode() == HttpStatus.OK;
     }
 
-
     @Test
     public void testGetAllItems() {
         Item item = new Item();
@@ -106,6 +112,4 @@ class ItemControllerTest {
         assert responseEntity.getStatusCode() == HttpStatus.OK;
     }
 
-
 }
-

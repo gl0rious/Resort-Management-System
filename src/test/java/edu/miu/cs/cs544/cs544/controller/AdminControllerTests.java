@@ -8,7 +8,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -16,12 +18,14 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import edu.miu.cs.cs544.controller.AdminController;
+import edu.miu.cs.cs544.controller.SpringSecurityWebTestConfig;
 import edu.miu.cs.cs544.domain.UserType;
 import edu.miu.cs.cs544.dto.request.AdminRequest;
 import edu.miu.cs.cs544.dto.response.AdminResponse;
 import edu.miu.cs.cs544.service.AdminService;
 
 @WebMvcTest(AdminController.class)
+@Import(SpringSecurityWebTestConfig.class)
 public class AdminControllerTests {
 
     @MockBean
@@ -34,6 +38,7 @@ public class AdminControllerTests {
     private ObjectMapper objectMapper;
 
     @Test
+    @WithMockUser
     public void should_ReturnAdmin_When_AdminExists() throws Exception {
         AdminResponse admin = new AdminResponse();
         admin.setId(1);
@@ -50,6 +55,7 @@ public class AdminControllerTests {
     }
 
     @Test
+    @WithMockUser
     public void should_CreateAdmin_When_AdminPosted() throws Exception {
         AdminRequest admin = new AdminRequest();
         admin.setUserName("admin");
