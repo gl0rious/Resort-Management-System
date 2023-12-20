@@ -1,4 +1,4 @@
-package edu.miu.cs.cs544.service;
+package edu.miu.cs.cs544.service.impl;
 
 import edu.miu.cs.cs544.domain.Product;
 import edu.miu.cs.cs544.dto.ProductDTO;

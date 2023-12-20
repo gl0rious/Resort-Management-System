@@ -1,9 +1,14 @@
 package edu.miu.cs.cs544;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import edu.miu.cs.cs544.domain.Country;
+import edu.miu.cs.cs544.domain.State;
+import edu.miu.cs.cs544.repository.CountryRepository;
+import edu.miu.cs.cs544.repository.StateRepository;
 import jakarta.transaction.Transactional;
 
 @SpringBootApplication
