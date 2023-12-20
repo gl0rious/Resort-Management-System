@@ -82,7 +82,7 @@ jobs:
               -p 3306:3306 \
               nasanbuyan/mysql:5.7
 
-            # Wait for MySQL to initialize
+            # Wait for MySQL to initialize...
             echo "Waiting for MySQL to initialize..."
             sleep 30
 
