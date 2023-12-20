@@ -63,7 +63,7 @@ jobs:
             echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
             # Pull the latest Docker images
-            echo "Pulling the latest Docker images..."
+            #echo "Pulling the latest Docker images..."
             docker pull nasanbuyan/team7-rms-app:latest
             docker pull nasanbuyan/mysql:5.7
             
@@ -82,4 +82,4 @@ jobs:
 
             # Start App container
             echo "Starting new App container..."
-            docker run --name app-container -d -e SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/RMS?useSSL=false&serverTimezone=UTC -e SPRING_DATASOURCE_USERNAME=rms -e SPRING_DATASOURCE_PASSWORD=password -p 8080:8080 --link mysql-container:mysql nasanbuyan/team7-rms-app:latest
+            docker run --name app-container -d -e 'SPRING_DATASOURCE_URL=jdbc:mysql://mysql-container:3306/RMS?useSSL=false&serverTimezone=UTC' -e SPRING_DATASOURCE_USERNAME=rms -e SPRING_DATASOURCE_PASSWORD=password -p 80:8080 --link mysql-container:mysql nasanbuyan/team7-rms-app:latest
