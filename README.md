@@ -17,7 +17,7 @@
 * Item has a check-in date and a checkout date as well as number of occupants.
 * Each customer has a billing address and a shipping address
 * What distinguishes a billing address from a shipping address is the Address Type (Billing orShipping).
-* An address has a State and a State belongs to a Country
+* An address has a State and a State belongs to a Country.
 * A Reservation can be in multiple states: New, Placed, Processed (payment is processed), Arrived, Departed or Cancelled
 * To use the system, each customer has to create a "User" account (with a username and a password).
 * There are two basic user types in the system: Admin and Client.
