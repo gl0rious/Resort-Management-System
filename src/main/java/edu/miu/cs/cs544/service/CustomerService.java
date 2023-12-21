@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,6 +27,8 @@ public class CustomerService {
     CustomerRepository customerRepository;
     @Autowired
     AddressService addressService;
+    @Autowired
+    private PasswordEncoder encoder;
 
     public CustomerResponse create(CustomerRequest request) {
         String userName = request.getUserName();
@@ -39,7 +42,7 @@ public class CustomerService {
         customer.setPhysicalAddress(physicAddress);
         customer = customerRepository.save(customer);
         User user = CustomerRequest.toUser(request);
-        user.setCustomer(customer);
+        user.setUserPass(encoder.encode(user.getUserPass()));
         customer.setUser(user);
         user = userRepository.save(user);
         CustomerResponse customerResponse = CustomerResponse.from(customer);

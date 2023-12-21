@@ -2,6 +2,7 @@ package edu.miu.cs.cs544.domain;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,7 +33,8 @@ public class Item {
 	@Embedded
 	private AuditData auditData;
 
-    public Item(long id, Integer occupants, LocalDate chickinDate, LocalDate checkoutDate, Reservation order, Product product, AuditData auditData) {
+	public Item(long id, Integer occupants, LocalDate chickinDate, LocalDate checkoutDate, Reservation order,
+			Product product, AuditData auditData) {
 		this.id = (int) id;
 		this.occupants = occupants;
 		this.checkinDate = chickinDate;
@@ -42,5 +44,4 @@ public class Item {
 		this.auditData = auditData;
 	}
 
-    }
-
+}

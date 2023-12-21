@@ -1,5 +1,6 @@
 package edu.miu.cs.cs544.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -23,7 +24,8 @@ public class Customer {
 	private String firstName;
 	private String lastName;
 	private String email;
-	@OneToOne(mappedBy = "customer")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	private User user;
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Address physicalAddress;

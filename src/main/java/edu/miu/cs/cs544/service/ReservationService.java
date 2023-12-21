@@ -2,21 +2,29 @@ package edu.miu.cs.cs544.service;
 
 import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.User;
-import edu.miu.cs.cs544.dto.ReservationDTO;
+import edu.miu.cs.cs544.domain.Reservation;
+import edu.miu.cs.cs544.dto.request.ItemRequest;
+import edu.miu.cs.cs544.dto.request.ReservationRequest;
+import edu.miu.cs.cs544.dto.request.ReservationStatusRequest;
+import edu.miu.cs.cs544.dto.response.ReservationResponse;
 
 import java.util.List;
 
 public interface ReservationService {
 
-    ReservationDTO createReservation(ReservationDTO reservationDTO);
+    ReservationResponse createReservation(ReservationRequest reservationDTO);
 
-    List<ReservationDTO> getAllReservations();
+    List<ReservationResponse> getAll();
 
-    ReservationDTO getReservation(int id);
+    ReservationResponse getById(int id);
 
-    ReservationDTO updateReservation(int id, ReservationDTO reservationDTO);
+    boolean exists(int id);
 
-    void cancelReservation(int id);
+    ReservationResponse updateStatus(int id, ReservationStatusRequest request);
 
-    List<ReservationDTO> getAllReservationsByCustomer(Customer customer);
+    void cancel(int id);
+
+    List<ReservationResponse> getAllByCustomer(Customer customer);
+
+    // ReservationResponse addItemToReservation(int id, ItemRequest request);
 }

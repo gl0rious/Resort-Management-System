@@ -1,13 +1,13 @@
+
 package edu.miu.cs.cs544.cs544.service;
 
 import edu.miu.cs.cs544.controller.SpringSecurityWebTestConfig;
 import edu.miu.cs.cs544.domain.Customer;
 import edu.miu.cs.cs544.domain.Reservation;
 import edu.miu.cs.cs544.domain.ReservationStatus;
-import edu.miu.cs.cs544.dto.ReservationDTO;
+import edu.miu.cs.cs544.dto.response.ReservationResponse;
 import edu.miu.cs.cs544.repository.ReservationRepository;
 import edu.miu.cs.cs544.service.impl.ReservationServiceImpl;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -50,17 +50,17 @@ public class ReservationServiceIMPTest {
     @Test
     @WithMockUser
     public void whenValidReservationThenReservationShouldBeFound() {
-        ReservationDTO found = reservationServiceIMP.getReservation(1);
+        ReservationResponse found = reservationServiceIMP.getById(1);
         assertThat(found.getId()).isEqualTo(1);
-        assertThat(found.getCustomerID()).isEqualTo(2);
+        assertThat(found.getCustomer().getId()).isEqualTo(2);
     }
 
     @Test
     @WithMockUser
     public void whenUpdateReservationThenReservationShouldBeFound() {
-        ReservationDTO found = reservationServiceIMP.getReservation(1);
+        ReservationResponse found = reservationServiceIMP.getById(1);
         assertThat(found.getId()).isEqualTo(1);
-        assertThat(found.getCustomerID()).isEqualTo(2);
+        assertThat(found.getCustomer().getId()).isEqualTo(2);
         assertThat(found.getStatus()).isEqualTo(ReservationStatus.ARRIVED);
     }
 }
