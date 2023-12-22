@@ -19,18 +19,18 @@ services:
       timeout: 20s
       retries: 10
 
-  app:
-    container_name: spring-boot-app
-    image: nasanbuyan/team7-rms-app:latest
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/RMS?useSSL=false&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: rms
-      SPRING_DATASOURCE_PASSWORD: password
-    ports:
-      - "8080:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
+#  app:
+#    container_name: spring-boot-app
+#    image: nasanbuyan/team7-rms-app:latest
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/RMS?useSSL=false&serverTimezone=UTC
+#      SPRING_DATASOURCE_USERNAME: rms
+#      SPRING_DATASOURCE_PASSWORD: password
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
 
 volumes:
   mysql-data:
