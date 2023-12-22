@@ -24,15 +24,14 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService {
 
     private final ReservationRepository reservationRepository;
-    private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
 
     @Override
     public ReservationResponse createReservation(ReservationDTO reservationDTO) {
         Reservation reservationRequest = reservationDTO.to();
         reservationRequest.setCustomer(getCustomerFromAuth());
+        reservationRequest.setStatus(ReservationStatus.NEW);
         Reservation reservation = reservationRepository.save(reservationRequest);
-        reservation.setStatus(ReservationStatus.NEW);
         return ReservationResponse.from(reservation);
     }
 
